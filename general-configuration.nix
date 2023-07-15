@@ -102,6 +102,9 @@
     (python3.withPackages(ps: with ps; [
       dbus-python
     ]))
+    # LSP's
+    nil # Nix
+    lua-language-server
   ];
   fonts = {
     fonts = with pkgs; [

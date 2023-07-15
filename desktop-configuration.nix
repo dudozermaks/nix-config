@@ -75,4 +75,8 @@
   # sound
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  environment.sessionVariables = rec {
+    WORK_FOLDER = "$HOME/shit/work";
+  };
 }
