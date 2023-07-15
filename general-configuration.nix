@@ -98,6 +98,8 @@
 
     btop
 
+    ripgrep
+
     # python packages
     (python3.withPackages(ps: with ps; [
       dbus-python
@@ -161,8 +163,8 @@
       fade-out-step = 0.03;
 		};
     opacityRules = [
-      "90:class_g = 'kitty' && focused"
-      "85:class_g = 'kitty' && !focused"
+      # "90:class_g = 'kitty' && focused"
+      # "85:class_g = 'kitty' && !focused"
     ];
   };
 
