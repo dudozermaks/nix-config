@@ -3,9 +3,9 @@
 {
   # if its desktop
   imports = if (builtins.readFile /sys/class/dmi/id/chassis_type) == "3\n" then 
-    [ ./desktop-configuration.nix /etc/nixos/hardware-configuration.nix ] 
+    [ ./desktop-configuration.nix /etc/nixos/hardware-configuration.nix <home-manager/nixos> ] 
   else 
-    [ ./laptop-configuration.nix /etc/nixos/hardware-configuration.nix] 
+    [ ./laptop-configuration.nix /etc/nixos/hardware-configuration.nix <home-manager/nixos> ] 
   ;
 
   networking.hostName = "DM"; # Define your hostname.
@@ -116,37 +116,6 @@
       noto-fonts-emoji
     ];
   };
-  # shell
-  environment.shells = with pkgs; [ zsh ];
-  programs.zsh = {
-    enable = true;
-    syntaxHighlighting.enable = true;
-    autosuggestions.enable = true;
-
-    shellAliases = {
-      update = "sudo nixos-rebuild switch";
-      nvimconfig="nvim ~/.config/nvim/init.lua";
-      nvimplugins="nvim ~/.config/nvim/lua/plugins.lua";
-      nvimsettings="nvim ~/.config/nvim/lua/settings.lua";
-      ls="exa";
-    };
-    interactiveShellInit = ''
-      # cfonts "ABOBA|PC" --align center --colors green,red --letter-spacing 2 --spaceless
-      colorpanes 
-      eval "$(zoxide init zsh)"
-      autoload -U promptinit; promptinit
-    '';
-    ohMyZsh = {
-      enable = true;
-      customPkgs = with pkgs; [
-        zsh-z # z command instead of cd
-      ];
-      plugins = [ "git" ];
-      # theme = "sporty_256";
-      theme = "agnoster";
-    };
-  };
-  users.defaultUserShell = pkgs.zsh;
 
   services.picom = {
     enable = true;
@@ -167,9 +136,62 @@
       # "85:class_g = 'kitty' && !focused"
     ];
   };
-
+# programs.zsh = {
+#     enable = true;
+#     syntaxHighlighting.enable = true;
+#     autosuggestions.enable = true;
+#
+#     shellAliases = {
+#      update = "sudo nixos-rebuild switch";
+#      nvimconfig="nvim ~/.config/nvim/init.lua";
+#      nvimplugins="nvim ~/.config/nvim/lua/plugins.lua";
+#      nvimsettings="nvim ~/.config/nvim/lua/settings.lua";
+#      ls="exa";
+#     };
+#     interactiveShellInit = ''
+#      # cfonts "ABOBA|PC" --align center --colors green,red --letter-spacing 2 --spaceless
+#      colorpanes 
+#      eval "$(zoxide init zsh)"
+#      autoload -U promptinit; promptinit
+#     '';
+#     ohMyZsh = {
+#      enable = true;
+#      customPkgs = with pkgs; [
+#        zsh-z # z command instead of cd
+#      ];
+#      plugins = [ "git" ];
+#      # theme = "sporty_256";
+#      theme = "agnoster";
+#     };
+#   };
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-  };
+    configure = {
+	customRc = ''
+		luafile ${/home/mask/.config/nvim/init.lua}
+	'';
+    	packages.nix = with pkgs.vimPlugins; {
+		start = [
+		  telescope-nvim
+		  nvim-treesitter.withAllGrammars
+		  nvim-ts-rainbow2
+		  comment-nvim
+		  gruvbox-nvim
+		  lualine-nvim
+		  bufferline-nvim
+		  nvim-autopairs
+		  alpha-nvim
+		  impatient-nvim
+		  indent-blankline-nvim
+		  zen-mode-nvim
+		  todo-comments-nvim
+		  trouble-nvim
+		  rnvimr
+		  lsp-zero-nvim
+		  nvim-web-devicons
+		];
+	};
+    };
+};
 }
