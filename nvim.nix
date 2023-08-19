@@ -59,6 +59,5 @@
         };
       })
     ];
-    programs.neovim.defaultEditor = true;
   };
 }

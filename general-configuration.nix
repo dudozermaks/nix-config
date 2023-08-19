@@ -106,6 +106,15 @@
 
       simplescreenrecorder
 
+      gimp
+
+      #equalizer
+      qpaeq
+
+
+      localsend
+
+      blender
       (python3.withPackages(ps: with ps; [
         dbus-python
       ]))
@@ -177,6 +186,7 @@
         set -g mouse on
       '';
     };
+
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
