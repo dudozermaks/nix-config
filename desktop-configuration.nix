@@ -71,8 +71,7 @@
 
     # monitors setup
     services.xserver.displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --output DVI-D-1 --off --output VGA-0 --primary --mode 1920x1080 --pos 1680x0 --rotate normal --output HDMI-2 --off --output VGA1 --mode 1680x1050 --pos 0x240 --rotate normal --output HDMI-1-1 --off
-    '';
+      ${pkgs.xorg.xrandr}/bin/xrandr --output VGA-0 --primary --mode 1920x1080 --pos 1680x0 --rotate normal --output DVI-D-0 --off --output HDMI-0 --off --output HDMI1 --off --output VGA1 --mode 1680x1050 --pos 0x30 --rotate normal --output VIRTUAL1 --off    '';
     # sound
     sound.enable = true;
     hardware.pulseaudio.enable = true;
