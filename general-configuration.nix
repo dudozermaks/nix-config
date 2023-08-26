@@ -115,6 +115,10 @@
       localsend
 
       blender
+
+      scons
+
+      inkscape
       (python3.withPackages(ps: with ps; [
         dbus-python
       ]))
